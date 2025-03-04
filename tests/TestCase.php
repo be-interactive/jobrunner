@@ -2,9 +2,9 @@
 
 namespace BeInteractive\Jobrunner\Tests;
 
+use BeInteractive\Jobrunner\JobrunnerServiceProvider;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Orchestra\Testbench\TestCase as Orchestra;
-use BeInteractive\Jobrunner\JobrunnerServiceProvider;
 
 class TestCase extends Orchestra
 {

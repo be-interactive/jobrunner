@@ -2,9 +2,9 @@
 
 namespace BeInteractive\Jobrunner;
 
+use BeInteractive\Jobrunner\Commands\JobrunnerCommand;
 use Spatie\LaravelPackageTools\Package;
 use Spatie\LaravelPackageTools\PackageServiceProvider;
-use BeInteractive\Jobrunner\Commands\JobrunnerCommand;
 
 class JobrunnerServiceProvider extends PackageServiceProvider
 {
