@@ -3,6 +3,8 @@
 namespace BeInteractive\Jobrunner\Tests;
 
 use BeInteractive\Jobrunner\JobrunnerServiceProvider;
+use BeInteractive\Jobrunner\Tests\Console\Commands\TestCommand;
+use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Orchestra\Testbench\TestCase as Orchestra;
 
@@ -28,10 +30,9 @@ class TestCase extends Orchestra
     {
         config()->set('database.default', 'testing');
 
-        /*
-         foreach (\Illuminate\Support\Facades\File::allFiles(__DIR__ . '/database/migrations') as $migration) {
-            (include $migration->getRealPath())->up();
-         }
-         */
+        // Access the scheduler and schedule the test command
+        $schedule = $app->make(Schedule::class);
+        $schedule->command(TestCommand::class)->everyFiveMinutes();
     }
+
 }
