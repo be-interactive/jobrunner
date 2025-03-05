@@ -17,9 +17,10 @@ class JobrunnerServiceProvider extends PackageServiceProvider
          */
         $package
             ->name('jobrunner')
-            ->hasConfigFile()
-            ->hasViews()
-            ->hasMigration('create_jobrunner_table')
-            ->hasCommand(JobrunnerCommand::class);
+            #->hasConfigFile()
+            #->hasViews()
+            #->hasMigration('create_jobrunner_table')
+            ->hasCommand(JobrunnerCommand::class)
+        ;
     }
 }
