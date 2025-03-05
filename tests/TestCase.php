@@ -34,5 +34,4 @@ class TestCase extends Orchestra
         $schedule = $app->make(Schedule::class);
         $schedule->command(TestCommand::class)->everyFiveMinutes();
     }
-
 }

@@ -15,6 +15,6 @@ class TestCommand extends Command
     public function handle(): void
     {
         self::$ran = true;
-        $this->info("Test command executed!");
+        $this->info('Test command executed!');
     }
 }
