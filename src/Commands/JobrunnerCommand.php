@@ -16,8 +16,20 @@ class JobrunnerCommand extends Command
     public function handle(): int
     {
 
-        // List all the commands that are scheduled to run
         $commands = Jobrunner::getScheduledCommands();
+
+        $type = select(
+            label: 'What type of Command would you like to choose from?',
+            options: ['All commands', 'Scheduled commands']
+        );
+
+        if ($type === 'All commands') {
+            // List all the commands that are available
+            $commands = Jobrunner::getCommands();
+        } else {
+            // List all the commands that are scheduled to run
+            $commands = Jobrunner::getScheduledCommands();
+        }
 
         // Ask the user to choose a command
         $commandKey = select(
@@ -29,6 +41,9 @@ class JobrunnerCommand extends Command
         // Run the chosen command
         $this->comment('Running command ['.$commandKey.']');
         $this->line('---------------------------------');
+
+        // todo: run jobs and closures
+
         $this->call($commandKey);
         $this->line('---------------------------------');
 
