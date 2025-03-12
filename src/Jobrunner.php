@@ -2,10 +2,6 @@
 
 namespace BeInteractive\Jobrunner;
 
-use Closure;
-use ReflectionClass;
-use ReflectionFunction;
-
 class Jobrunner
 {
     /**
@@ -36,17 +32,17 @@ class Jobrunner
             $files = scandir($folder);
 
             foreach ($files as $file) {
-                if (is_file($folder . '/' . $file)) {
+                if (is_file($folder.'/'.$file)) {
                     $parts = explode('.', $file);
                     $filename = $parts[0];
-                    $fullyQualifiedClassName = $namespace . '\\' . $filename;
+                    $fullyQualifiedClassName = $namespace.'\\'.$filename;
 
                     try {
-                    	$reflection = new \ReflectionClass($fullyQualifiedClassName);
+                        $reflection = new \ReflectionClass($fullyQualifiedClassName);
                         $property = $reflection->getProperty('signature');
                         $property->setAccessible(true);
 
-                        $commandInstance = new $fullyQualifiedClassName();
+                        $commandInstance = new $fullyQualifiedClassName;
                         $signature = $property->getValue($commandInstance);
 
                         $commands->put($signature, [
@@ -55,7 +51,7 @@ class Jobrunner
                         ]);
 
                     } catch (\Throwable $e) {
-                    	throw new \RuntimeException($e->getMessage());
+                        throw new \RuntimeException($e->getMessage());
                     }
 
                 }
