@@ -6,23 +6,34 @@ class Jobrunner
 {
     /**
      * Get all the commands that are scheduled to run
+     *
+     * @return \Illuminate\Support\Collection<string, array{command: string, expression: string}>
      */
     public function getScheduledCommands(): \Illuminate\Support\Collection
     {
         return collect(
             app('Illuminate\Console\Scheduling\Schedule')->events()
-        )->mapWithKeys(function ($event) {
-            // remove the command signature from the command string
-            $parts = explode(' ', $event->command);
-            $clean = array_pop($parts);
+        )
+            ->filter(function ($event) {
+                return ! empty($event->command);
+            })
+            ->mapWithKeys(function ($event) {
+                // remove the command signature from the command string
+                $parts = explode(' ', $event->command);
+                $clean = array_pop($parts);
 
-            return [$clean => [
-                'command' => $event->command,
-                'expression' => $event->expression,
-            ]];
-        });
+                return [$clean => [
+                    'command' => (string) $event->command,
+                    'expression' => (string) $event->expression,
+                ]];
+            });
     }
 
+    /**
+     * Get all the commands that are available
+     *
+     * @return \Illuminate\Support\Collection<string, array{command: string, description: string}>
+     */
     public function getCommands(): \Illuminate\Support\Collection
     {
         $commands = collect();
@@ -66,6 +77,11 @@ class Jobrunner
         return $commands;
     }
 
+    /**
+     * Get the folders where the commands are located
+     *
+     * @return array<int, string>|null
+     */
     public function getFolders(): ?array
     {
         $folders = config('jobrunner.folders');

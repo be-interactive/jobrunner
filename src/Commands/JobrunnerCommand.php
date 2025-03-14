@@ -11,7 +11,7 @@ class JobrunnerCommand extends Command
 {
     public $signature = 'jobrunner';
 
-    public $description = 'My command';
+    public $description = 'Run any command in your Laravel application';
 
     public function handle(): int
     {
