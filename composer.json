@@ -1,8 +1,9 @@
 {
     "name": "be-interactive/jobrunner",
-    "description": "Run a Laravel scheduled job manually.",
+    "description": "Run Laravel scheduled jobs and commands like a champ.",
+    "type": "library",
     "keywords": [
-        "BE-Interactive B.V.",
+        "BE-Interactive",
         "laravel",
         "jobrunner"
     ],
