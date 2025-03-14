@@ -28,6 +28,11 @@ class Jobrunner
         $commands = collect();
 
         // Scan command files in the specified folders
+        $folders = $this->getFolders();
+        if (is_null($folders)) {
+            throw new \RuntimeException('No folders specified');
+        }
+
         foreach ($this->getFolders() as $namespace => $folder) {
             $files = scandir($folder);
 
@@ -61,8 +66,15 @@ class Jobrunner
         return $commands;
     }
 
-    public function getFolders(): array
+    public function getFolders(): ?array
     {
-        return config('jobrunner.folders');
+        $folders = config('jobrunner.folders');
+
+        if (is_array($folders) && count($folders) > 0) {
+            return $folders;
+
+        }
+
+        return null;
     }
 }

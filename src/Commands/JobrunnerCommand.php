@@ -16,12 +16,14 @@ class JobrunnerCommand extends Command
     public function handle(): int
     {
 
-        $commands = Jobrunner::getScheduledCommands();
-
-        $type = select(
-            label: 'What type of Command would you like to choose from?',
-            options: ['All commands', 'Scheduled commands']
-        );
+        // Check if All commands is available as an option
+        $type = 'Scheduled commands';
+        if (! is_null(\Jobrunner::getFolders())) {
+            $type = select(
+                label: 'What type of Command would you like to choose from?',
+                options: ['All commands', 'Scheduled commands']
+            );
+        }
 
         if ($type === 'All commands') {
             // List all the commands that are available
