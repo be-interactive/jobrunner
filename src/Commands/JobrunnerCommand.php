@@ -18,7 +18,7 @@ class JobrunnerCommand extends Command
 
         // Check if All commands is available as an option
         $type = 'Scheduled commands';
-        if (! is_null(\Jobrunner::getFolders())) {
+        if (! is_null(Jobrunner::getFolders())) {
             $type = select(
                 label: 'What type of Command would you like to choose from?',
                 options: ['All commands', 'Scheduled commands']
